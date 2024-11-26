@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather-Based Song Recommendation</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #74ebd5, #ACB6E5);
+            color: #333;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .container {
+            text-align: center;
+            background: #fff;
+            padding: 20px 40px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+        h1 {
+            color: #4A90E2;
+            margin-bottom: 20px;
+        }
+        input[type="text"] {
+            padding: 10px;
+            width: 80%;
+            margin-bottom: 20px;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            outline: none;
+        }
+        input[type="text"]:focus {
+            border-color: #4A90E2;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            color: #fff;
+            background-color: #4A90E2;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        button:hover {
+            background-color: #357ABD;
+        }
+        .result {
+            margin-top: 20px;
+            font-size: 18px;
+            color: #555;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Weather-Based Song Recommendation</h1>
+        <form method="POST" action="{% url 'suggest_song' %}">
+            {% csrf_token %}
+            <input type="text" name="weather" placeholder="Enter a weather condition">
+            <br>
+            <button type="submit">Get Suggestion</button>
+        </form>
+
+        {% if error %}
+            <div class="error">{{ error }}</div>
+        {% endif %}
+
+        {% if song %}
+            <div class="card">
+                <h3>Song Recommendation</h3>
+                <p><strong>Track Name:</strong> {{ song.TrackName }}</p>
+                <p><strong>Artist:</strong> {{ song.Artist }}</p>
+                <p><strong>Album:</strong> {{ song.Album }}</p>
+            </div>
+        {% endif %}
+    </div>
+</body>
+</html>
