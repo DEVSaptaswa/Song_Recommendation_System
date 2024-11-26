@@ -1,33 +1,34 @@
-from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import render, redirect
-from .forms import SignUpForm, LoginForm
+from django.contrib.auth import login, authenticate, logout
+from django.contrib.auth.models import User
+from django.contrib.auth.forms import AuthenticationForm
+from .forms import SignUpForm
 
+# Sign-Up View
 def signup_view(request):
     if request.method == 'POST':
         form = SignUpForm(request.POST)
         if form.is_valid():
-            form.save()
-            return redirect('login')
+            user = form.save()  # Save user to the database
+            login(request, user)  # Log the user in
+            return redirect('home')  # Redirect to the home page
     else:
         form = SignUpForm()
     return render(request, 'accounts/signup.html', {'form': form})
 
+
+# Log-In View
 def login_view(request):
     if request.method == 'POST':
-        form = LoginForm(request.POST)
+        form = AuthenticationForm(data=request.POST)
         if form.is_valid():
-            username = form.cleaned_data['username']
-            password = form.cleaned_data['password']
-            user = authenticate(request, username=username, password=password)
-            if user is not None:
-                login(request, user)
-                return redirect('home')
-            else:
-                form.add_error(None, "Invalid credentials")
+            user = form.get_user()  # Retrieve authenticated user
+            login(request, user)  # Log the user in
+            return redirect('home')  # Redirect to the home page
     else:
-        form = LoginForm()
+        form = AuthenticationForm()
     return render(request, 'accounts/login.html', {'form': form})
 
 def logout_view(request):
     logout(request)
-    return redirect('login')
+    return redirect('/')   # Redirect to the home page or desired URL after logout

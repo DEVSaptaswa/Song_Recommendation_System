@@ -39,6 +39,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    'recom_eng.apps.RecomEngConfig',
+    'crispy_forms',
 ]
 
 MIDDLEWARE = [
@@ -77,10 +80,15 @@ WSGI_APPLICATION = 'spotify_recom.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'django_auth',  # Your database name
+        'USER': 'root',  # Replace with your MySQL username
+        'PASSWORD': '090038',  # Replace with your MySQL password
+        'HOST': 'localhost',  # Default host
+        'PORT': '3306',  # Default MySQL port
     }
 }
+
 
 
 # Password validation
