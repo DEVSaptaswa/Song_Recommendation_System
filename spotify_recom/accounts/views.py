@@ -1,7 +1,9 @@
 from django.shortcuts import render, redirect
-from django.contrib.auth import login, logout
+from django.contrib.auth import login, logout,authenticate
 from django.contrib.auth.forms import AuthenticationForm
-from .forms import SignUpForm
+from .forms import SignUpForm, LoginForm
+from django.contrib import messages
+from django.contrib.auth.models import User
 
 def home(request):
     return render(request, 'base.html')
@@ -22,14 +24,25 @@ def signup_view(request):
 # Log-In View
 def login_view(request):
     if request.method == 'POST':
-        form = AuthenticationForm(data=request.POST)
+        form = LoginForm(request.POST)
         if form.is_valid():
-            user = form.get_user()  # Retrieve authenticated user
-            login(request, user)  # Log the user in
-            return redirect('home')  # Redirect to the home page
+            username = form.cleaned_data['username']
+            password = form.cleaned_data['password']
+            try:
+                # Check if the user exists
+                user = User.objects.get(username=username)
+                # Validate the password
+                if user.password == password:
+                    login(request, user)  # Log the user in
+                    return redirect('/')
+                else:
+                    messages.error(request, "Password is incorrect")  # Incorrect password
+            except User.DoesNotExist:
+                messages.error(request, "Invalid credentials")  # Username doesn't exist
     else:
-        form = AuthenticationForm()
+        form = LoginForm()
     return render(request, 'accounts/login.html', {'form': form})
+
 
 def logout_view(request):
     logout(request)
