@@ -45,7 +45,7 @@ header a {
 }
 
 header a:hover {
-    color: #ff9a8b;
+    color: #b6f0b0 0%;
 }
 
 /* Footer Styling */
@@ -65,7 +65,7 @@ footer {
     padding: 40px;
     margin: auto;
     max-width: 400px;
-    border: 2px solid #ff9a8b;
+    border: 2px solid #b6f0b0 0%;
     border-radius: 12px;
     box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.15);
 }
@@ -101,12 +101,12 @@ footer {
 }
 
 .login-form input:focus {
-    border-color: #ff9a8b;
+    border-color: #b6f0b0 0%;
     background-color: #ffffff;
 }
 
 .btn-primary {
-    background-color: #ff9a8b;
+    background-color: #b6f0b0 0%;
     color: #ffffff;
     padding: 10px 15px;
     font-size: 1rem;
@@ -118,7 +118,7 @@ footer {
 }
 
 .btn-primary:hover {
-    background-color: #ff7a6b;
+    background-color: #b6f0b0 0%;
 }
 
 /* Footer */
@@ -137,14 +137,16 @@ footer {
     background-color: #ffffff;
     padding: 40px;
     margin: auto;
-    max-width: 400px;
+    max-width: 600px; /* Increased max-width for a wider form */
+    width: 90%; /* Ensure it remains responsive on smaller screens */
     border: 2px solid #96e6a1; /* Light green border for signup */
     border-radius: 12px;
     box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.15);
+    text-align: auto;
 }
 
 .signup-container h3 {
-    font-size: 1.8rem;
+    font-size: 2rem; /* Adjust heading size to fit the wider form */
     font-weight: 700;
     color: #333333;
     margin-bottom: 10px;
@@ -161,11 +163,12 @@ footer {
     display: flex;
     flex-direction: column;
     gap: 15px;
+    width: 100%; /* Ensure form fields stretch across the container */
 }
 
 .signup-form input {
-    border: 2px solid #f0f0f0; /* Subtle input border */
-    padding: 10px 15px;
+    border: 2px solid #f0f0f0;
+    padding: 15px; /* Slightly larger padding for better usability */
     font-size: 1rem;
     border-radius: 8px;
     outline: none;
@@ -174,14 +177,14 @@ footer {
 }
 
 .signup-form input:focus {
-    border-color: #96e6a1; /* Focus effect matching border color */
+    border-color: #96e6a1;
     background-color: #ffffff;
 }
 
 .btn-primary {
-    background-color: #96e6a1; /* Matching green for signup */
+    background-color: #96e6a1;
     color: #ffffff;
-    padding: 10px 15px;
+    padding: 12px 20px; /* Larger button for the wider form */
     font-size: 1rem;
     font-weight: bold;
     border: none;
@@ -191,5 +194,5 @@ footer {
 }
 
 .btn-primary:hover {
-    background-color: #7dc486; /* Slightly darker green on hover */
+    background-color: #7dc486;
 }
