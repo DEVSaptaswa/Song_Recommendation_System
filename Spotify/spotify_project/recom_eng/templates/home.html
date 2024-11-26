@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <style>
+        /* Styling the body with a radial gradient */
+        body {
+            background: radial-gradient(circle, #b6f0b0 0%, white 80%);
+            height: 100vh;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Arial', sans-serif;
+        }
+
+    .btn-primary:hover {
+    background-color: #7dc486;
+        }
+        /* Center text styling */
+        .center-text {
+            font-size: 4rem;
+            color: #4b6043;
+            font-family: 'Georgia', serif;
+            margin-bottom: 15px;
+        }
+
+        .details{
+            font-size: medium;
+            color: #4b6043;
+            font-style: italic;
+            font-family: 'Roboto';
+            margin-bottom: 25px;
+        }
+
+        /* Buttons section styling */
+        .auth-buttons {
+            display: flex;
+            gap: 20px;
+        }
+
+        /* Button styling */
+        .auth-buttons a button {
+            padding: 15px 30px;
+            border: none;
+            background-color: #4b6043;
+            color: white;
+            font-size: 1rem;
+            cursor: pointer;
+            border-radius: 10px;
+            transition: background-color 0.3s ease;
+        }
+
+        .auth-buttons a button:hover {
+            background-color: #b6f0b0;
+            color: #4b6043;
+        }
+    </style>
+</head>
+<body>
+    <!-- Central text -->
+    <h1 class="center-text">Recommodify</h1>
+    <h3 class="details">Your Personalized AI Music Companion
+        Discover the perfect tracks for every mood and moment.</h3>
+
+    <!-- Log In and Sign Up Buttons -->
+    <div class="auth-buttons">
+        <a href="{% url 'login' %}"><button>Log In</button></a>
+        <a href="{% url 'sign_up' %}"><button>Sign Up</button></a>
+    </div>
+</body>
+</html>
