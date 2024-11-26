@@ -14,6 +14,7 @@
         <a href="\"><h1 class="logo">AI Song Recommender</h1></a>
         <div>
             {% if user.is_authenticated %}
+                {{ user.username }}
                 <a href="{% url 'logout' %}"><button class="btn btn-outline-success">Logout</button></a>
             {% else %}
                 <a href="{% url 'login' %}"><button class="btn btn-outline-success">Log In</button></a>
