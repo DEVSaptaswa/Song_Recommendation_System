@@ -4,7 +4,7 @@
     <h2>Your Personalized AI Music Companion</h2>
     <p>Discover the perfect tracks for every mood and moment.</p>
     {% if user.is_authenticated %}
-    <a href="#" class="btn btn-dark">Get Started</a>
+    <a href="{% url 'dashboard' %}" class="btn btn-dark">Get Started</a>
     {% else %}
     <a href="{% url 'login' %}" class="btn btn-dark">Get Started</a>
     {% endif %}
