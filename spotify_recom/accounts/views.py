@@ -34,7 +34,7 @@ def login_view(request):
                 # Validate the password
                 if user.password == password:
                     login(request, user)  # Log the user in
-                    return redirect('/')
+                    return redirect('dashboard')
                 else:
                     messages.error(request, "Password is incorrect")  # Incorrect password
             except User.DoesNotExist:

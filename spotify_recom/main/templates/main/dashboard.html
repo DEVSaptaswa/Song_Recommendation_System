@@ -3,8 +3,10 @@
 <div class="dashboard-container text-center">
     <h2>Welcome to Your AI Music Companion</h2>
     <p>Select an option to proceed:</p>
-    <a href="{% url 'weather_mood_music' %}" class="btn btn-primary">Weather Mood Music</a>
-    <a href="{% url 'facial_mood_detection' %}" class="btn btn-secondary">Facial Mood Detection</a>
+    <div class="button-container mt-4">
+        <a href="{% url 'weather_mood_music' %}" class="btn btn-success btn-lg rounded-pill mx-3 px-5 py-3">Weather Mood Music</a>
+        <a href="{% url 'facial_mood_detection' %}" class="btn btn-secondary btn-lg rounded-pill mx-3 px-5 py-3">Facial Mood Detection</a>
+    </div>
 </div>
 
 {% endblock %}

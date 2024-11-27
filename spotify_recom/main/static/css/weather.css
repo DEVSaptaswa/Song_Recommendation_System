@@ -1,0 +1,105 @@
+.weather-page {
+    background: linear-gradient(135deg, #85d8ce, #085078); /* Gradient background */
+    color: white; /* Default text color */
+}
+
+.weather-info {
+    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+    border-radius: 10px;
+}
+.weather-info,
+.main-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.weather-box {
+    border: 2px solid #fff;
+    border-radius: 15px;
+    padding: 20px;
+    text-align: center;
+    width: 80%;
+    background: rgba(255, 255, 255, 0.15);
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+.weather-box .temperature {
+    font-size: 3rem;
+    font-weight: bold;
+}
+
+.weather-box .condition,
+.weather-box .location {
+    font-size: 1.2rem;
+    margin-top: 10px;
+}
+
+.main-content h2 {
+    font-size: 2rem;
+    font-weight: bold;
+}
+
+.main-content p {
+    font-size: 1.2rem;
+    margin-top: 10px;
+    color: #f0f0f0;
+}
+
+.main-content .btn {
+    font-size: 1.2rem;
+    font-weight: bold;
+    border-radius: 30px;
+    padding: 15px 40px;
+}
+
+/* Weather Input Section */
+.weather-input {
+    justify-content: center;
+    width: 100%;
+    max-width: 600px; /* Limit the width */
+    margin: 0 auto; /* Center align the group */
+}
+
+.weather-input input {
+    border: 2px solid #fff;
+    background: rgba(255, 255, 255, 0.15);
+    color: white;
+    padding: 10px 20px;
+    font-size: 1rem;
+    border-radius: 30px;
+    outline: none;
+    transition: all 0.3s ease-in-out;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.weather-input input::placeholder {
+    color: rgba(255, 255, 255, 0.7);
+    font-style: italic;
+}
+
+.weather-input input:focus {
+    border-color: #85d8ce;
+    background: rgba(255, 255, 255, 0.25);
+    box-shadow: 0px 4px 15px rgba(133, 216, 206, 0.5);
+}
+
+.weather-input button {
+    margin-left: 10px;
+    font-size: 1rem;
+    font-weight: bold;
+    background: linear-gradient(135deg, #1e3c72, #2a5298);
+    border: none;
+    color: white;
+    border-radius: 30px;
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.weather-input button:hover {
+    background: linear-gradient(135deg, #85d8ce, #2a5298);
+    box-shadow: 0px 6px 15px rgba(133, 216, 206, 0.5);
+}
