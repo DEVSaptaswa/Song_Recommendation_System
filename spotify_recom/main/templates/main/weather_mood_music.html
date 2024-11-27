@@ -1,13 +1,14 @@
 {% extends 'main/base.html' %}
 {% load static %}
-{% block content%}
+{% block content %}
 <link rel="stylesheet" href="{% static 'css/weather.css' %}">
 <div class="container-fluid weather-page d-flex align-items-center justify-content-center vh-100">
     <div class="row align-items-center w-75">
+        <!-- Weather Input and Display Section -->
         <div class="col-md-5 weather-info text-center py-4">
             <!-- Location Input -->
             <div class="location-input mb-3">
-                <input type="text" id="location-input" class="form-control rounded-pill shadow-sm" placeholder="Enter location" />
+                <input type="text" id="location-input" class="form-control rounded-pill shadow-sm" placeholder="Enter location"/>
                 <button id="fetch-weather-btn" class="btn btn-primary rounded-pill px-4 shadow-sm mt-2">Get Weather</button>
             </div>
         
@@ -16,7 +17,7 @@
                 <i class="bi bi-cloud-sun"></i> Current Weather
             </h3>
             <div id="weather-display" class="weather-box mt-4">
-                <p>Loading weather...</p>
+                <p class="text-white-50">Weather data will appear here...</p>
             </div>
         </div>
 
@@ -28,10 +29,15 @@
             <p class="text-white">
                 Discover music and moods tailored to the current weather conditions.
             </p>
-            <a href="#" class="btn btn-primary btn-lg rounded-pill mt-4 px-5" name="music">
-                <i class="bi bi-headphones"></i> Explore Music
-            </a>
+            <div id="song-display" class="song-box mt-4">
+                <h4>Suggested Songs:</h4>
+                <ul id="song-list" class="list-unstyled text-white scrolling-list">
+                    <!-- Songs will be dynamically loaded here -->
+                </ul>
+            </div>
         </div>
     </div>
 </div>
+
+<script src="{% static 'main/js/fetch_weather.js' %}"></script>
 {% endblock %}
