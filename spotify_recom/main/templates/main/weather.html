@@ -1,14 +1,107 @@
 <!-- weather.html -->
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Weather-Based Song Recommendation</title>
     <style>
         /* Add your styles here */
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #74ebd5, #ACB6E5);
+            color: #333;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            text-align: center;
+            background: #fff;
+            padding: 20px 40px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            max-width: 700px;
+            width: 90%;
+            overflow-y: auto;
+            max-height: 90vh;
+        }
+
+        h1 {
+            color: #4A90E2;
+            margin-bottom: 20px;
+        }
+
+        input[type="text"] {
+            padding: 10px;
+            width: 80%;
+            margin-bottom: 20px;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            outline: none;
+        }
+
+        input[type="text"]:focus {
+            border-color: #4A90E2;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            color: #fff;
+            background-color: #4A90E2;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #357ABD;
+        }
+
+        .results {
+            margin-top: 20px;
+        }
+
+        .card {
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 10px 0;
+            text-align: left;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .card h3 {
+            color: #4A90E2;
+            margin-bottom: 10px;
+            font-size: 18px;
+        }
+
+        .card p {
+            margin: 5px 0;
+            line-height: 1.5;
+        }
+
+        .card p strong {
+            color: #333;
+        }
+
+        .error {
+            margin-top: 20px;
+            color: red;
+            font-weight: bold;
+        }
     </style>
 </head>
+
 <body>
     {% extends 'main/base.html' %}
     {% load static %}
@@ -43,5 +136,35 @@
         </div>
     </div>
     {% endblock %}
+    <div class="container">
+        <h1>Weather-Based Song Recommendation</h1>
+        <form method="POST" action="{% url 'suggest_song' %}">
+            {% csrf_token %}
+            <input type="text" name="weather" placeholder="Enter a weather condition">
+            <br>
+            <button type="submit">Get Suggestions</button>
+        </form>
+
+        {% if error %}
+        <div class="error">{{ error }}</div>
+        {% endif %}
+
+        {% if songs %}
+        <h1>Suggested Songs</h1>
+        <ul>
+            {% for song in songs %}
+                <li>
+                    <strong>Track:</strong> {{ song.TrackName }}<br>
+                    <strong>Artist:</strong> {{ song.Artist }}<br>
+                    <strong>Album:</strong> {{ song.Album }}
+                </li>
+                <hr>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No song suggestions available.</p>
+    {% endif %}
+    
 </body>
+
 </html>
