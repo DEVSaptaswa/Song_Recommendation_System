@@ -5,12 +5,12 @@ from django.conf import settings
 import requests  # Import requests to make the API call
 import pandas as pd
 
-API_URL = "https://api.openweathermap.org/data/2.5/weather"
-API_KEY = settings.WEATHER_API_KEY
+# API_URL = "https://api.openweathermap.org/data/2.5/weather"
+# API_KEY = settings.WEATHER_API_KEY
 
 # Load the dataset (Make sure the file path is correct)
-file_path = 'spotify_weather_data.csv'  # Update this path
-data = pd.read_csv(file_path)
+# file_path = 'spotify_weather_data.csv'  # Update this path
+# data = pd.read_csv(file_path)
 
 def index(request):
     return render(request, 'main/index.html')
@@ -26,60 +26,48 @@ def facial_mood_detection(request):
     # Logic for facial mood detection
     return render(request, 'main/facial_mood_detection.html')
 
-def suggest_song(weather, dataset):
-    # Filter songs for the given weather condition
-    filtered_songs = dataset[dataset['Weather'].str.lower() == weather.lower()]
-    
-    if filtered_songs.empty:
-        return None
-    
-    # Select a random song from the filtered list
-    song = filtered_songs.sample().iloc[0]
-    return {
-        "Track Name": song["TrackName"],
-        "Artist": song["Artist"],
-        "Album": song["Album"]
-    }
+# def suggest_song(weather, dataset):
+# Load the dataset (Make sure the file path is correct)
+# file_path = 'spotify_weather_data.csv'  # Update this path
+# data = pd.read_csv(file_path)
 
-# View function to handle song suggestion request
-def suggest_weather_song_view(request):
-    weather = request.POST['weather'].strip()
-    
-    if not weather:
-        return JsonResponse({"error": "Please provide a weather condition"}, status=400)
-    
-    # Get song suggestion based on the weather
-    suggestion = suggest_song(weather, data)
-    
-    if suggestion:
-        return JsonResponse(suggestion)
-    else:
-        return JsonResponse({"error": f"No song suggestions found for '{weather}'"}, status=404)
+# def weather_view(request):
+#     return render(request, 'accounts/weather.html')
 
-# Unified weather_view
-def weather_view(request):
-    # Define city name and country
-    city = "New York"
-    country = "US"
+# Function to suggest a song based on the weather
+# def suggest_song(weather, dataset, num_suggestions=5):
+#     # Filter songs for the given weather condition
+#     filtered_songs = dataset[dataset['Weather'].str.lower() == weather.lower()]
     
-    # Create the URL with city and country
-    url = f"{API_URL}?q={city},{country}&appid={API_KEY}&units=metric"
-    
-    # Fetch data from the API
-    response = requests.get(url)
-    data = response.json()
+#     if filtered_songs.empty:
+#         return None
 
-    # Check if the API request was successful
-    if data.get("cod") == 200:
-        temperature = data['main']['temp']
-        condition = data['weather'][0]['description']
-        location = f"{data['name']}, {data['sys']['country']}"
-    else:
-        temperature = condition = location = "Data not available"
+#     # Select random songs and convert to a list of dictionaries
+#     songs = filtered_songs.sample(min(num_suggestions, len(filtered_songs)))
+#     return songs.to_dict('records')
 
-    # Return the data as JSON
-    return JsonResponse({
-        'temperature': temperature,
-        'condition': condition,
-        'location': location
-    })
+
+
+
+
+# def suggest_weather_song_view(request):
+#     if request.method == "POST":
+#         weather = request.POST.get('weather', '').strip()
+
+#         if not weather:
+#             return render(request, 'main/weather.html', {"error": "Please provide a weather condition"})
+
+#         # Get multiple song suggestions based on the weather
+#         suggestions = suggest_song(weather, data)
+
+#         if suggestions:
+#             # Ensure column names match your CSV file
+#             for song in suggestions:
+#                 song["TrackName"] = song.pop("TrackName")  # Replace "TrackName" with the actual column name
+#             return render(request, 'main/weather.html', {"songs": suggestions})
+#         else:
+#             return render(request, 'main/weather.html', {"error": f"No song suggestions found for '{weather}'"})
+
+#     return render(request, 'main/weather.html')
+
+
