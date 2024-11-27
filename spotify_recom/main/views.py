@@ -5,6 +5,9 @@ from django.conf import settings
 import requests  # Import requests to make the API call
 import pandas as pd
 import random
+import csv
+import base64
+import io
 
 # API_URL = "https://api.openweathermap.org/data/2.5/weather"
 # API_KEY = settings.WEATHER_API_KEY
@@ -172,7 +175,7 @@ import pandas as pd
 from django.shortcuts import render
 import os
 
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(_file_)))
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 from django.conf import settings
 

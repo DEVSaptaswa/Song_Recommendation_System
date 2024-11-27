@@ -16,6 +16,54 @@
         <p>No song suggestions found for this mood.</p>
     {% endif %}
     
-    <a href="{% url 'quiz_page' %}" class="btn btn-primary mt-3">Take the Quiz Again</a>
 </div>
+<a href="{% url 'quiz_page' %}" class="btn btn-primary mt-3">Take the Quiz Again</a>
+
+<style>
+    .result-container {
+        max-width: 700px;
+        margin: 0 auto;
+        padding: 20px;
+        background: #f4f4f9;
+        border-radius: 15px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        height: 75vh; /* Fixed height for the result container */
+        overflow-y: auto; /* Enable scrolling */
+    }
+
+    .result-container ul {
+        list-style-type: none;
+        padding: 0;
+    }
+
+    .result-container li {
+        padding: 5px 0;
+        font-size: 1.1rem;
+    }
+
+    .btn-primary {
+        background-color: #007bff;
+        border: none;
+        border-radius: 20px;
+        padding: 10px 20px;
+    }
+
+    .btn-primary:hover {
+        background-color: #0056b3;
+    }
+
+    /* Optional: Adjusting the scrollbar appearance */
+    .result-container::-webkit-scrollbar {
+        width: 6px;
+    }
+
+    .result-container::-webkit-scrollbar-thumb {
+        background: #007bff;
+        border-radius: 10px;
+    }
+
+    .result-container::-webkit-scrollbar-thumb:hover {
+        background: #0056b3;
+    }
+</style>
 {% endblock %}

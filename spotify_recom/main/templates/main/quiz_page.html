@@ -65,22 +65,42 @@
         background: #f4f4f9;
         border-radius: 15px;
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        height: 75vh; /* Fixed height */
+        overflow-y: auto; /* Enable scrolling */
     }
+
     .question {
         text-align: left;
     }
+
     label {
         display: block;
         margin: 5px 0;
     }
+
     .btn-primary {
         background-color: #007bff;
         border: none;
         border-radius: 20px;
         padding: 10px 20px;
     }
+
     .btn-primary:hover {
         background-color: #0056b3;
+    }
+
+    /* Optional: Adjusting the scrollbar appearance */
+    .quiz-container::-webkit-scrollbar {
+        width: 6px;
+    }
+
+    .quiz-container::-webkit-scrollbar-thumb {
+        background: #007bff;
+        border-radius: 10px;
+    }
+
+    .quiz-container::-webkit-scrollbar-thumb:hover {
+        background: #0056b3;
     }
 </style>
 {% endblock %}
