@@ -14,7 +14,18 @@
                 <button class="btn btn-primary btn-lg rounded-pill px-5" id="start-analysis">
                     <i class="bi bi-camera"></i> Start Analysis
                 </button>
+                <!-- Image to display captured photo -->
+                <img id="captured-image" class="mt-3" style="display: none; width: 100%; height: auto;"
+                    alt="Captured Image" />
+                <!-- Video element to show live camera feed -->
+                <video id="video" width="100%" height="auto" style="display: none;" autoplay></video>
+                <canvas id="canvas" style="display: none;"></canvas>
                 <p class="mt-3 text-white-50">Please allow camera access to proceed.</p>
+
+                <!-- Loader -->
+                <div id="loader" class="text-white mt-3" style="display: none;">
+                    <i class="bi bi-hourglass-split"></i> Analyzing your facial expression...
+                </div>
             </div>
         </div>
 
@@ -22,13 +33,132 @@
         <div class="col-md-6 text-center py-5">
             <h2 class="text-white"><i class="bi bi-music-note-beamed"></i> Suggested Songs</h2>
             <div class="songs-box mt-4 p-3">
+                <!-- Emotion -->
+                <p id="detected-emotion" class="text-white-50">
+                    <strong>Emotion:</strong> <span id="emotion-placeholder">None</span>
+                </p>
+                <!-- Songs List -->
                 <ul id="song-list" class="list-unstyled text-white">
-                    <li><i class="bi bi-music-note"></i> Song 1 - Artist 1</li>
-                    <li><i class="bi bi-music-note"></i> Song 2 - Artist 2</li>
-                    <li><i class="bi bi-music-note"></i> Song 3 - Artist 3</li>
+                    <li><i class="bi bi-music-note"></i> No songs to display</li>
                 </ul>
             </div>
         </div>
     </div>
 </div>
+
+<script>
+    let currentStream = null;  // Store the video stream to stop it later
+
+    // Handle start analysis click event
+    document.getElementById("start-analysis").addEventListener("click", function () {
+        if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+            navigator.mediaDevices.getUserMedia({ video: true })
+                .then(function (stream) {
+                    // Show the video feed
+                    const video = document.getElementById("video");
+                    video.style.display = "block";
+                    video.srcObject = stream;
+                    currentStream = stream;
+
+                    // Hide the "Start Analysis" button
+                    document.getElementById("start-analysis").style.display = "none";
+
+                    // Capture a photo after a short delay
+                    setTimeout(capturePhoto, 3000); // Wait 3 seconds for video to stabilize
+                })
+                .catch(function (error) {
+                    console.error("Error accessing the camera:", error);
+                    alert("Camera access is required. Please allow permissions.");
+                });
+        } else {
+            alert("Your browser does not support camera access.");
+        }
+    });
+
+    // Capture the image from the video feed
+    function capturePhoto() {
+        const video = document.getElementById("video");
+        const canvas = document.getElementById("canvas");
+        const context = canvas.getContext("2d");
+
+        canvas.width = video.videoWidth;
+        canvas.height = video.videoHeight;
+
+        context.drawImage(video, 0, 0, canvas.width, canvas.height);
+
+        const imageDataUrl = canvas.toDataURL("image/jpeg");
+
+        // Display captured image and hide video
+        const capturedImage = document.getElementById("captured-image");
+        capturedImage.src = imageDataUrl;
+        capturedImage.style.display = "block";
+        video.style.display = "none";
+
+        // Stop the camera
+        if (currentStream) {
+            currentStream.getTracks().forEach(track => track.stop());
+        }
+
+        // Send image for analysis
+        analyzeFacialExpression(imageDataUrl);
+    }
+
+    // Send the captured image for facial expression analysis
+    function analyzeFacialExpression(imageDataUrl) {
+        const csrfToken = getCSRFToken();
+        const formData = new FormData();
+        formData.append("image", imageDataUrl);
+
+        document.getElementById("loader").style.display = "block";
+
+        fetch('/analyze-facial-expression/', {
+            method: 'POST',
+            headers: { 'X-CSRFToken': csrfToken }, // Include CSRF token
+            body: formData
+        })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById("loader").style.display = "none";
+                if (data.emotion) {
+                    document.getElementById("emotion-placeholder").textContent = capitalize(data.emotion);
+                    const songList = document.getElementById("song-list");
+                    songList.innerHTML = ""; // Clear previous list
+                    if (data.songs.length > 0) {
+                        data.songs.forEach(song => {
+                            const li = document.createElement("li");
+                            li.innerHTML = `<i class="bi bi-music-note"></i>${song}`;
+                            songList.appendChild(li);
+                        });
+                    } else {
+                        songList.innerHTML = "<li><i class='bi bi-music-note'></i> No songs found for your emotion.</li>";
+                    }
+                } else {
+                    alert("Error analyzing expression: " + data.error);
+                }
+            })
+            .catch(error => {
+                console.error("Error:", error);
+                document.getElementById("loader").style.display = "none";
+                alert("An error occurred while analyzing the expression.");
+            });
+    }
+
+    // Get CSRF token from cookies
+    function getCSRFToken() {
+        const cookies = document.cookie.split(';');
+        for (let i = 0; i < cookies.length; i++) {
+            const cookie = cookies[i].trim();
+            if (cookie.startsWith('csrftoken=')) {
+                return cookie.substring('csrftoken='.length);
+            }
+        }
+        return null;
+    }
+
+    // Capitalize the first letter of a string
+    function capitalize(str) {
+        return str.charAt(0).toUpperCase() + str.slice(1);
+    }
+</script>
+
 {% endblock %}

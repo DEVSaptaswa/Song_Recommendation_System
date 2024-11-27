@@ -1,0 +1,21 @@
+{% extends 'main/base.html' %}
+
+{% block content %}
+<div class="result-container text-center">
+    <h2>Your Quiz Result</h2>
+    <p>Your mood is: <strong>{{ final_mood }}</strong></p>
+    
+    <h3>Suggested Songs:</h3>
+    {% if suggested_songs %}
+        <ul>
+            {% for song in suggested_songs %}
+                <li><strong>{{ song.track }}</strong> by {{ song.artist }}</li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No song suggestions found for this mood.</p>
+    {% endif %}
+    
+    <a href="{% url 'quiz_page' %}" class="btn btn-primary mt-3">Take the Quiz Again</a>
+</div>
+{% endblock %}

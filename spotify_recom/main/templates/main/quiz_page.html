@@ -1,0 +1,86 @@
+{% extends 'main/base.html' %}
+{% block content %}
+<div class="quiz-container text-center">
+    <h2 class="mt-4">Mood Quiz</h2>
+    <p class="mb-3">Answer all the questions to find out your mood:</p>
+
+    <form method="POST" action="{% url 'quiz_page' %}" class="quiz-form">
+        {% csrf_token %}
+
+        <!-- Question 1 -->
+        <div class="question mb-3">
+            <p>1. What best describes your current state?</p>
+            <label><input type="radio" name="question1" value="A" required> Energetic and motivated</label><br>
+            <label><input type="radio" name="question1" value="B"> Calm and relaxed</label><br>
+            <label><input type="radio" name="question1" value="C"> Thoughtful and reflective</label><br>
+            <label><input type="radio" name="question1" value="D"> Joyful and light-hearted</label>
+        </div>
+
+        <!-- Question 2 -->
+        <div class="question mb-3">
+            <p>2. How would you spend an unexpected free hour?</p>
+            <label><input type="radio" name="question2" value="A" required> Exercising or tackling a task</label><br>
+            <label><input type="radio" name="question2" value="B"> Taking a nap or meditating</label><br>
+            <label><input type="radio" name="question2" value="C"> Journaling or daydreaming</label><br>
+            <label><input type="radio" name="question2" value="D"> Chatting or celebrating</label>
+        </div>
+
+        <!-- Question 3 -->
+        <div class="question mb-3">
+            <p>3. Pick the kind of weather you enjoy most:</p>
+            <label><input type="radio" name="question3" value="A" required> Cool and breezy</label><br>
+            <label><input type="radio" name="question3" value="B"> Warm and sunny</label><br>
+            <label><input type="radio" name="question3" value="C"> Overcast and rainy</label><br>
+            <label><input type="radio" name="question3" value="D"> Bright and vibrant</label>
+        </div>
+
+        <!-- Question 4 -->
+        <div class="question mb-3">
+            <p>4. What kind of activity do you find most appealing right now?</p>
+            <label><input type="radio" name="question4" value="A" required> Running, dancing, or sports</label><br>
+            <label><input type="radio" name="question4" value="B"> Reading a book or relaxing</label><br>
+            <label><input type="radio" name="question4" value="C"> Listening to music or reflecting</label><br>
+            <label><input type="radio" name="question4" value="D"> Watching a comedy or having fun</label>
+        </div>
+
+        <!-- Question 5 -->
+        <div class="question mb-3">
+            <p>5. What kind of movie would you watch right now?</p>
+            <label><input type="radio" name="question5" value="A" required> Action-packed or adventurous</label><br>
+            <label><input type="radio" name="question5" value="B"> Nature documentary or calming visuals</label><br>
+            <label><input type="radio" name="question5" value="C"> Deep, emotional drama</label><br>
+            <label><input type="radio" name="question5" value="D"> Light-hearted comedy or romance</label>
+        </div>
+
+        <!-- Submit Button -->
+        <button type="submit" class="btn btn-primary mt-3">Submit</button>
+    </form>
+</div>
+
+<style>
+    .quiz-container {
+        max-width: 700px;
+        margin: 0 auto;
+        padding: 20px;
+        background: #f4f4f9;
+        border-radius: 15px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+    .question {
+        text-align: left;
+    }
+    label {
+        display: block;
+        margin: 5px 0;
+    }
+    .btn-primary {
+        background-color: #007bff;
+        border: none;
+        border-radius: 20px;
+        padding: 10px 20px;
+    }
+    .btn-primary:hover {
+        background-color: #0056b3;
+    }
+</style>
+{% endblock %}
