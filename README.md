@@ -112,7 +112,7 @@ cd Song_Recommendation_System
 ### 2. Create and activate a virtual environment
 
 ```bash
-python -m venv venv
+python -m venv .venv
 source venv/bin/activate        # macOS / Linux
 venv\Scripts\activate           # Windows
 ```
@@ -191,5 +191,3 @@ Open [http://127.0.0.1:8000](http://127.0.0.1:8000) in your browser.
 
 - [WeatherAPI Documentation](https://www.weatherapi.com/docs/)
 - [TensorFlow Keras](https://www.tensorflow.org/api_docs/python/tf/keras)
-- [Kaggle — MUSE Dataset](https://www.kaggle.com/)
-- [Kaggle — Spotify Weather Dataset](https://www.kaggle.com/)
